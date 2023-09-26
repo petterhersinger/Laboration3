@@ -180,7 +180,6 @@ namespace Laboration3.Models
             String sqlstring = "Select * From Tbl_Player";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
-            //Adapter & dataset
             SqlDataAdapter myAdapter = new SqlDataAdapter(dbCommand);
             DataSet myDS = new DataSet();
 

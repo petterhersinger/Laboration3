@@ -1,0 +1,71 @@
+﻿@model Laboration3.Models.PlayerTeamViewModel
+
+@using Microsoft.AspNetCore.Http
+
+@{
+    int i = 0;
+    if (ViewData["Team"] != null) { i = (int)ViewData["Team"]; }
+    string s = ViewBag.message;
+    if (ViewBag.message != null)
+    {
+
+    }
+    ViewData["Title"] = "Sort";
+}
+<h2>Sort Teams</h2>
+
+<p><b>Dropdown with list from ViewModel</b></p>
+
+<div class="row">
+    <div class="form-group col-md-4">
+        <form asp-action="Filtrering3">
+            <div class="form-group">
+                <select class="form-control" id="Team" name="Team">
+                    @foreach (Laboration3.Models.TeamModel TeamModel in Model.TeamModelList)
+                    {
+                        @if (TeamModel.Id != i)
+                        {
+                            <option value="@TeamModel.Id">@TeamModel.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@TeamModel.Id" Selected>@TeamModel.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Filter" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+<p>Querystring contains: @ViewBag.sort</p>
+
+<table class="table">
+    <tr>
+        <th>
+            <a href="Sort?sort=name">Name
+                @if (ViewBag.sort == "name")
+                {
+                    if ((string)ViewBag.Direction == "asc")
+                    {
+                        <p>Up</p>
+                    } else
+                    {
+                        <p>Down</p>
+                    }
+                }
+            </a>
+            </th>
+        <th>Team</th>
+    </tr>
+    @foreach (Laboration3.Models.PlayerTeamModel PlayerTeamModel in Model.PlayerTeamModelList)
+    {
+        <tr>
+            <td>@PlayerTeamModel.Name</td>
+            <td>@PlayerTeamModel.Team</td>
+
+        </tr>
+    }
+</table>

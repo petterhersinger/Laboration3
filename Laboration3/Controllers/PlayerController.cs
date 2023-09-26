@@ -88,7 +88,6 @@ namespace Laboration3.Controllers
                     ViewBag.error = error;
                 }
             }
-
             return View(updatedPlayer);
         }
 
@@ -99,7 +98,7 @@ namespace Laboration3.Controllers
             PlayerMethod pm = new PlayerMethod();
             string error = "";
             PlayerList = pm.GetPlayerWithDataSet(out error);
-            ViewBag.antal = HttpContext.Session.GetString("antal");
+            ViewBag.amount = HttpContext.Session.GetString("amount");
             ViewBag.error = error;
             return View(PlayerList);
         }
@@ -139,7 +138,7 @@ namespace Laboration3.Controllers
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
 
-            ViewModelPlayerTeam myModel = new ViewModelPlayerTeam
+            PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
                 PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
@@ -153,7 +152,7 @@ namespace Laboration3.Controllers
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
 
-            ViewModelPlayerTeam myModel = new ViewModelPlayerTeam
+            PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
                 PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
@@ -169,15 +168,15 @@ namespace Laboration3.Controllers
             return View(myModel);
         }
         [HttpPost]
-        public IActionResult Filtrering2(string Aktivitet)
+        public IActionResult Filtrering2(string Team)
         {
-            int i = Convert.ToInt32(Aktivitet);
-            ViewData["Aktivitet"] = i;
+            int i = Convert.ToInt32(Team);
+            ViewData["Team"] = i;
 
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
 
-            ViewModelPlayerTeam myModel = new ViewModelPlayerTeam
+            PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
                 PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
@@ -199,7 +198,7 @@ namespace Laboration3.Controllers
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
 
-            ViewModelPlayerTeam myModel = new ViewModelPlayerTeam
+            PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
                 PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
@@ -221,7 +220,7 @@ namespace Laboration3.Controllers
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
 
-            ViewModelPlayerTeam myModel = new ViewModelPlayerTeam
+            PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
                 PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg, i),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
@@ -245,7 +244,7 @@ namespace Laboration3.Controllers
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
 
-            List<PlayerTeamMethod> PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg);
+            List<PlayerTeamModel> PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg);
 
             string currentDirection = HttpContext.Session.GetString("Direction");
 
@@ -258,16 +257,16 @@ namespace Laboration3.Controllers
 
             ViewBag.Direction = ascending ? "asc" : "desc";
 
-            if (sort == "fornamn")
+            if (sort == "name")
             {
                 if (ascending)
                 {
-                    PlayerTeamModelList = PlayerTeamModelList.OrderBy(s => s.Fornamn).ToList();
+                    PlayerTeamModelList = PlayerTeamModelList.OrderBy(s => s.Name).ToList();
                     HttpContext.Session.SetString("Direction", "desc");
                 }
                 else
                 {
-                    PlayerTeamModelList = PlayerTeamModelList.OrderByDescending(s => s.Fornamn).ToList();
+                    PlayerTeamModelList = PlayerTeamModelList.OrderByDescending(s => s.Name).ToList();
                     HttpContext.Session.SetString("Direction", "asc");
                 }
             }
@@ -275,7 +274,7 @@ namespace Laboration3.Controllers
             {
             }
 
-            ViewModelPlayerTeam myModel = new ViewModelPlayerTeam
+            PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
                 PlayerTeamModelList = PlayerTeamModelList,
                 TeamModelList = tm.GetTeamList(out string errormsg2)
