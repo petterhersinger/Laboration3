@@ -14,9 +14,8 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "INSERT INTO Tbl_Players (Pl_Name, Pl_Position, Pl_IsStarting, Pl_TeamId) VALUES (@Name, @Position, @IsStarting, @TeamId)";
-
-            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+            SqlCommand dbCommand = new SqlCommand("InsertPlayer", dbConnection);
+            dbCommand.CommandType = CommandType.StoredProcedure;
 
             dbCommand.Parameters.Add("Name", SqlDbType.NVarChar, 255).Value = pd.Name;
             dbCommand.Parameters.Add("Position", SqlDbType.NVarChar, 255).Value = pd.Position;
@@ -50,8 +49,8 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "DELETE FROM Tbl_Players WHERE Pl_Id = @Id";
-            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+            SqlCommand dbCommand = new SqlCommand("DeletePlayer", dbConnection);
+            dbCommand.CommandType = CommandType.StoredProcedure;
 
             dbCommand.Parameters.Add("Id", SqlDbType.Int).Value = player_id;
 
@@ -82,8 +81,8 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "UPDATE Tbl_Players SET Pl_Name = @Name, Pl_Position = @Position, Pl_IsStarting = @IsStarting, Pl_TeamId = @TeamId WHERE Pl_Id = @Id";
-            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+            SqlCommand dbCommand = new SqlCommand("UpdatePlayer", dbConnection);
+            dbCommand.CommandType = CommandType.StoredProcedure;
 
             dbCommand.Parameters.Add("Name", SqlDbType.NVarChar, 30).Value = updatedPlayer.Name;
             dbCommand.Parameters.Add("Position", SqlDbType.NVarChar, 30).Value = updatedPlayer.Position;
@@ -125,8 +124,9 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "Select * From Tbl_Players Where Pl_Id = @Id";
-            SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
+            SqlCommand dbCommand = new SqlCommand("GetPlayer", dbConnection);
+            dbCommand.CommandType = CommandType.StoredProcedure;
+
             dbCommand.Parameters.Add("Id", SqlDbType.Int).Value = player_id;
 
             SqlDataAdapter myAdapter = new SqlDataAdapter(dbCommand);
@@ -177,7 +177,7 @@ namespace Laboration3.Models
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "Select * From Tbl_Players";
+            String sqlstring = "SELECT * FROM PlayerView;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             SqlDataAdapter myAdapter = new SqlDataAdapter(dbCommand);
@@ -232,7 +232,8 @@ namespace Laboration3.Models
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "Select * From Tbl_Players";
+            //Vy instället för procedur
+            String sqlstring = "SELECT * FROM PlayerView;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             SqlDataReader reader = null;
@@ -318,8 +319,8 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlString = "SELECT * FROM Tbl_Players WHERE Pl_Name LIKE @input;";
-            SqlCommand dbCommand = new SqlCommand(sqlString, dbConnection);
+            SqlCommand dbCommand = new SqlCommand("SearchPlayer", dbConnection);
+            dbCommand.CommandType = CommandType.StoredProcedure;
 
             dbCommand.Parameters.Add("input", SqlDbType.NVarChar, 255).Value = input;
 
