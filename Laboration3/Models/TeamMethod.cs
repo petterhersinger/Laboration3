@@ -26,8 +26,8 @@ namespace Laboration3.Models
                 while (reader.Read())
                 {
                     TeamModel tm = new TeamModel();
-                    tm.Name = reader["Name"].ToString();
-                    tm.Id = Convert.ToInt16(reader["Id"]);
+                    tm.Name = reader["Te_Name"].ToString();
+                    tm.Id = Convert.ToInt16(reader["Te_Id"]);
 
                     TeamModelList.Add(tm);
                 }

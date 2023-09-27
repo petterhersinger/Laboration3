@@ -26,8 +26,8 @@ namespace Laboration3.Models
                 while (reader.Read())
                 {
                     PlayerTeamModel pt = new PlayerTeamModel();
-                    pt.Name = reader["Name"].ToString();
-                    pt.Team = reader["Team"].ToString();
+                    pt.Name = reader["Pl_Name"].ToString();
+                    pt.Team = reader["Pl_TeamId"].ToString();
 
                     PlayerTeamModelList.Add(pt);
                 }
@@ -66,8 +66,8 @@ namespace Laboration3.Models
                 while (reader.Read())
                 {
                     PlayerTeamModel pt = new PlayerTeamModel();
-                    pt.Name = reader["Name"].ToString();
-                    pt.Team = reader["Team"].ToString();
+                    pt.Name = reader["Pl_Name"].ToString();
+                    pt.Team = reader["Pl_TeamId"].ToString();
 
                     PlayerTeamModelList.Add(pt);
                 }

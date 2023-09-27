@@ -18,10 +18,10 @@ namespace Laboration3.Models
 
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
-            dbCommand.Parameters.Add("Pl_Name", SqlDbType.NVarChar, 255).Value = pd.Name;
-            dbCommand.Parameters.Add("Pl_Position", SqlDbType.NVarChar, 255).Value = pd.Position;
-            dbCommand.Parameters.Add("Pl_IsStarting", SqlDbType.Int).Value = pd.IsStarting;
-            dbCommand.Parameters.Add("Pl_TeamId", SqlDbType.Int).Value = pd.TeamId;
+            dbCommand.Parameters.Add("Name", SqlDbType.NVarChar, 255).Value = pd.Name;
+            dbCommand.Parameters.Add("Position", SqlDbType.NVarChar, 255).Value = pd.Position;
+            dbCommand.Parameters.Add("IsStarting", SqlDbType.Int).Value = pd.IsStarting;
+            dbCommand.Parameters.Add("TeamId", SqlDbType.Int).Value = pd.TeamId;
 
             try
             {
@@ -85,11 +85,11 @@ namespace Laboration3.Models
             String sqlstring = "UPDATE Tbl_Players SET Pl_Name = @Name, Pl_Position = @Position, Pl_IsStarting = @IsStarting, Pl_TeamId = @TeamId, WHERE Pl_Id = @Id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
-            dbCommand.Parameters.Add("Pl_Name", SqlDbType.NVarChar, 30).Value = updatedPlayer.Name;
-            dbCommand.Parameters.Add("Pl_Position", SqlDbType.NVarChar, 30).Value = updatedPlayer.Position;
-            dbCommand.Parameters.Add("Pl_IsStarting", SqlDbType.Int).Value = updatedPlayer.IsStarting;
-            dbCommand.Parameters.Add("Pl_TeamId", SqlDbType.Int).Value = updatedPlayer.TeamId;
-            dbCommand.Parameters.Add("Pl_Id", SqlDbType.Int).Value = player_id;
+            dbCommand.Parameters.Add("Name", SqlDbType.NVarChar, 30).Value = updatedPlayer.Name;
+            dbCommand.Parameters.Add("Position", SqlDbType.NVarChar, 30).Value = updatedPlayer.Position;
+            dbCommand.Parameters.Add("IsStarting", SqlDbType.Int).Value = updatedPlayer.IsStarting;
+            dbCommand.Parameters.Add("TeamId", SqlDbType.Int).Value = updatedPlayer.TeamId;
+            dbCommand.Parameters.Add("Id", SqlDbType.Int).Value = player_id;
 
             try
             {
@@ -127,7 +127,7 @@ namespace Laboration3.Models
 
             String sqlstring = "Select * From Tbl_Players Where Pl_Id = @Id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
-            dbCommand.Parameters.Add("Pl_Id", SqlDbType.Int).Value = player_id;
+            dbCommand.Parameters.Add("Id", SqlDbType.Int).Value = player_id;
 
             SqlDataAdapter myAdapter = new SqlDataAdapter(dbCommand);
             DataSet myDS = new DataSet();
@@ -294,8 +294,8 @@ namespace Laboration3.Models
                 while (reader.Read())
                 {
                     PlayerTeamModel Team = new PlayerTeamModel();
-                    Team.Name = reader["Name"].ToString();
-                    Team.Team = reader["Team"].ToString();
+                    Team.Name = reader["Pl_Name"].ToString();
+                    Team.Team = reader["Pl_TeamId"].ToString();
 
                     TeamList.Add(Team);
                 }
