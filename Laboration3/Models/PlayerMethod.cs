@@ -29,7 +29,7 @@ namespace Laboration3.Models
                 i = dbCommand.ExecuteNonQuery();
                 if (i == 1) { errormsg = ""; }
                 else
-                { errormsg = "Det skapas inte en person i databasen."; }
+                { errormsg = "No player is inserted to the db."; }
                 return (i);
             }
             catch (Exception e)

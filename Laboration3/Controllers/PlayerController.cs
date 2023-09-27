@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Laboration3.Models;
+﻿using Laboration3.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Laboration3.Controllers
 {
@@ -64,7 +68,7 @@ namespace Laboration3.Controllers
                 return View(player);
             }
 
-            ViewBag.error = error; 
+            ViewBag.error = error;
             return RedirectToAction("SelectWithDataSet");
         }
 
@@ -131,66 +135,7 @@ namespace Laboration3.Controllers
             ViewBag.error = error;
             return View(TeamList);
         }
-        //[HttpGet]
-        //public IActionResult Filtering()
-        //{
-        //    PlayerTeamMethod pm = new PlayerTeamMethod();
-        //    TeamMethod tm = new TeamMethod();
 
-        //    PlayerTeamViewModel myModel = new PlayerTeamViewModel
-        //    {
-        //        PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
-        //        TeamModelList = tm.GetTeamList(out string errormsg2)
-        //    };
-        //    ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
-        //    return View(myModel);
-        //}
-        //[HttpGet]
-        //public IActionResult Filtering2()
-        //{
-        //    PlayerTeamMethod pm = new PlayerTeamMethod();
-        //    TeamMethod tm = new TeamMethod();
-
-        //    PlayerTeamViewModel myModel = new PlayerTeamViewModel
-        //    {
-        //        PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
-        //        TeamModelList = tm.GetTeamList(out string errormsg2)
-        //    };
-
-        //    List<TeamModel> TeamList = new List<TeamModel>();
-        //    TeamList = tm.GetTeamList(out string errormsg3);
-        //    ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
-        //    ViewData["teamlist"] = TeamList;
-
-        //    ViewBag.teamlist = TeamList;
-
-        //    return View(myModel);
-        //}
-        //[HttpPost]
-        //public IActionResult Filtering2(string Team)
-        //{
-        //    int i = Convert.ToInt32(Team);
-        //    ViewData["Team"] = i;
-
-        //    PlayerTeamMethod pm = new PlayerTeamMethod();
-        //    TeamMethod tm = new TeamMethod();
-
-        //    PlayerTeamViewModel myModel = new PlayerTeamViewModel
-        //    {
-        //        PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
-        //        TeamModelList = tm.GetTeamList(out string errormsg2)
-        //    };
-
-        //    List<TeamModel> TeamList = new List<TeamModel>();
-        //    TeamList = tm.GetTeamList(out string errormsg3);
-        //    ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
-        //    ViewData["teamlist"] = TeamList;
-
-        //    ViewBag.teamlist = TeamList;
-        //    ViewBag.message = Team;
-
-        //    return View(myModel);
-        //}
         [HttpGet]
         public IActionResult Filtering()
         {
@@ -311,5 +256,68 @@ namespace Laboration3.Controllers
 
             return RedirectToAction("SelectWithDataSet");
         }
+        [HttpGet]
+        public IActionResult Edit2(int player_id)
+        {
+            PlayerMethod pm = new PlayerMethod();
+            string error = "";
+            var player = pm.GetPlayer(player_id, out error);
+
+            if (player != null)
+            {
+                TeamMethod tm = new TeamMethod();
+                List<TeamModel> teams = tm.GetTeamList(out error);
+
+                PlayerEditViewModel viewModel = new PlayerEditViewModel
+                {
+                    Player = player,
+                    Teams = teams
+                };
+                return View(viewModel);
+            }
+
+            ViewBag.error = error;
+            return RedirectToAction("SelectWithDataSet");
+        }
+
+        [HttpPost, ActionName("Edit2")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit2(int player_id, IFormCollection formCollection)
+        {
+            PlayerMethod pm = new PlayerMethod();
+            string error = "";
+            var updatedPlayer = pm.GetPlayer(player_id, out error);
+
+            if (updatedPlayer == null)
+            {
+                ViewBag.error = error;
+                return RedirectToAction("SelectWithDataSet");
+            }
+
+            int selectedTeamId = Convert.ToInt32(formCollection["Player.TeamId"]);
+
+            updatedPlayer.TeamId = selectedTeamId;
+
+            if (ModelState.IsValid)
+            {
+                int i = pm.UpdatePlayer(player_id, updatedPlayer, out error);
+
+                if (i > 0)
+                {
+                    return RedirectToAction("Details", new { player_id });
+                }
+                else
+                {
+                    ViewBag.error = error;
+                }
+            }
+
+            TeamMethod tm = new TeamMethod();
+            List<TeamModel> teams = tm.GetTeamList(out error);
+            ViewBag.Teams = new SelectList(teams, "Id", "Name");
+
+            return View(updatedPlayer);
+        }
+
     }
 }

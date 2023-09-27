@@ -1,0 +1,41 @@
+﻿@model Laboration3.Models.PlayerEditViewModel
+
+@{
+    ViewData["Title"] = "Edit2";
+}
+
+<h1>Edit Player 2</h1>
+
+<form asp-action="Edit2" asp-route-player_id="@Model.Player.Id">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Player.Id" />
+
+    <div class="form-group">
+        <label asp-for="Player.Name" class="control-label">Name</label>
+        <input asp-for="Player.Name" class="form-control" />
+        <span asp-validation-for="Player.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Player.Position" class="control-label">Position</label>
+        <input asp-for="Player.Position" class="form-control" />
+        <span asp-validation-for="Player.Position" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Player.IsStarting" class="control-label">IsStarting</label>
+        <input asp-for="Player.IsStarting" class="form-control" />
+        <span asp-validation-for="Player.IsStarting" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Player.TeamId" class="control-label">Team</label>
+        <select asp-for="Player.TeamId" asp-items="@(new SelectList(Model.Teams, "Id", "Name"))" class="form-control"></select>
+        <span asp-validation-for="Player.TeamId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="SelectWithDataSet">Back to List</a>
+    </div>
+</form>
