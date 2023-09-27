@@ -18,8 +18,8 @@ namespace Laboration3.Models
 
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
-            dbCommand.Parameters.Add("Pl_Name", SqlDbType.NVarChar, 30).Value = pd.Name;
-            dbCommand.Parameters.Add("Pl_Position", SqlDbType.NVarChar, 30).Value = pd.Position;
+            dbCommand.Parameters.Add("Pl_Name", SqlDbType.NVarChar, 255).Value = pd.Name;
+            dbCommand.Parameters.Add("Pl_Position", SqlDbType.NVarChar, 255).Value = pd.Position;
             dbCommand.Parameters.Add("Pl_IsStarting", SqlDbType.Int).Value = pd.IsStarting;
             dbCommand.Parameters.Add("Pl_TeamId", SqlDbType.Int).Value = pd.TeamId;
 
@@ -80,9 +80,9 @@ namespace Laboration3.Models
         {
             SqlConnection dbConnection = new SqlConnection();
 
-            dbConnection.ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Players;Integrated Security=True";
+            dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "UPDATE Tbl_Player SET Pl_Name = @Name, Pl_Position = @Position, Pl_IsStarting = @IsStarting, Pl_TeamId = @TeamId, WHERE Pl_Id = @Id";
+            String sqlstring = "UPDATE Tbl_Players SET Pl_Name = @Name, Pl_Position = @Position, Pl_IsStarting = @IsStarting, Pl_TeamId = @TeamId, WHERE Pl_Id = @Id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             dbCommand.Parameters.Add("Pl_Name", SqlDbType.NVarChar, 30).Value = updatedPlayer.Name;
@@ -125,7 +125,7 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "Select * From Tbl_Player Where Pl_Id = @Id";
+            String sqlstring = "Select * From Tbl_Players Where Pl_Id = @Id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
             dbCommand.Parameters.Add("Pl_Id", SqlDbType.Int).Value = player_id;
 
@@ -177,7 +177,7 @@ namespace Laboration3.Models
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "Select * From Tbl_Player";
+            String sqlstring = "Select * From Tbl_Players";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             SqlDataAdapter myAdapter = new SqlDataAdapter(dbCommand);
@@ -276,7 +276,7 @@ namespace Laboration3.Models
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "SELECT Tbl_Players.Pl_Name, Tbl_Players.Pl_Team FROM ((Person INNER JOIN Tbl_HasShoes ON Tbl_Players.Pl_Id = Tbl_HasShoes.Hs_Player) INNER JOIN Tbl_Shoes ON Tbl_HasShoes.Hs_Shoe = Tbl_Shoes.Sh_Id);";
+            String sqlstring = "SELECT Tbl_Players.Pl_Name AS PlayerName, Tbl_Teams.Te_Name AS TeamName FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             SqlDataReader reader = null;
@@ -318,7 +318,7 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlString = "SELECT * FROM Tbl_Players WHERE Name LIKE @input;";
+            String sqlString = "SELECT * FROM Tbl_Players WHERE Pl_Name LIKE @input;";
             SqlCommand dbCommand = new SqlCommand(sqlString, dbConnection);
 
             dbCommand.Parameters.Add("input", SqlDbType.NVarChar, 255).Value = input;

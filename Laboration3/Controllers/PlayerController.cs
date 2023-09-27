@@ -22,7 +22,7 @@ namespace Laboration3.Controllers
             string error = "";
             i = pm.InsertPlayer(pd, out error);
             ViewBag.error = error;
-            ViewBag.antal = i;
+            ViewBag.amount = i;
 
             return View("InsertPlayer");
         }
@@ -48,7 +48,7 @@ namespace Laboration3.Controllers
             PlayerMethod pm = new PlayerMethod();
             string error = "";
             int i = pm.DeletePlayer(player_id, out error);
-            HttpContext.Session.SetString("antal", i.ToString());
+            HttpContext.Session.SetString("amount", i.ToString());
             return RedirectToAction("SelectWithDataSet");
         }
 
@@ -77,9 +77,9 @@ namespace Laboration3.Controllers
                 PlayerMethod pm = new PlayerMethod();
                 string error = "";
 
-                int result = pm.UpdatePlayer(player_id, updatedPlayer, out error);
+                int i = pm.UpdatePlayer(player_id, updatedPlayer, out error);
 
-                if (result > 0)
+                if (i > 0)
                 {
                     return RedirectToAction("Details", new { player_id = player_id });
                 }
@@ -118,7 +118,7 @@ namespace Laboration3.Controllers
             PlayerMethod pm = new PlayerMethod();
             string error = "";
             PlayerList = pm.GetPlayerWithReader(out error);
-            ViewBag.antal = HttpContext.Session.GetString("antal");
+            ViewBag.amount = HttpContext.Session.GetString("amount");
             ViewBag.error = error;
             return View(PlayerList);
         }
@@ -128,7 +128,7 @@ namespace Laboration3.Controllers
             PlayerMethod pm = new PlayerMethod();
             string error = "";
             TeamList = pm.GetPlayerTeam(out error);
-            ViewBag.antal = HttpContext.Session.GetString("antal");
+            ViewBag.amount = HttpContext.Session.GetString("amount");
             ViewBag.error = error;
             return View(TeamList);
         }
@@ -147,7 +147,7 @@ namespace Laboration3.Controllers
             return View(myModel);
         }
         [HttpGet]
-        public IActionResult Filtrering2()
+        public IActionResult Filtering2()
         {
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
@@ -168,7 +168,7 @@ namespace Laboration3.Controllers
             return View(myModel);
         }
         [HttpPost]
-        public IActionResult Filtrering2(string Team)
+        public IActionResult Filtering2(string Team)
         {
             int i = Convert.ToInt32(Team);
             ViewData["Team"] = i;
@@ -193,7 +193,7 @@ namespace Laboration3.Controllers
             return View(myModel);
         }
         [HttpGet]
-        public IActionResult Filtrering3()
+        public IActionResult Filtering3()
         {
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
@@ -214,7 +214,7 @@ namespace Laboration3.Controllers
             return View(myModel);
         }
         [HttpPost]
-        public IActionResult Filtrering3(string Team)
+        public IActionResult Filtering3(string Team)
         {
             int i = Convert.ToInt32(Team);
             PlayerTeamMethod pm = new PlayerTeamMethod();

@@ -11,7 +11,7 @@ namespace Laboration3.Models
         {
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
-            String sqlstring = "SELECT Person.Fornamn, Person.Efternamn, Hobby.Aktivitet FROM Person INNER JOIN HarHobby ON Person.Id = HarHobby.Person INNER JOIN Hobby ON HarHobby.Hobby = Hobby.Id;";
+            String sqlstring = "SELECT Tbl_Players.Pl_Name AS PlayerName, Tbl_Teams.Te_Name AS TeamName FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
             SqlDataReader reader = null;
 
@@ -48,7 +48,7 @@ namespace Laboration3.Models
         {
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
-            String sqlstring = "SELECT Person.Fornamn, Person.Efternamn, Hobby.Aktivitet FROM Person INNER JOIN HarHobby ON Person.Id = HarHobby.Person INNER JOIN Hobby ON HarHobby.Hobby = Hobby.Id WHERE Hobby.Id = @filterId;";
+            String sqlstring = "SELECT Tbl_Players.Pl_Name AS PlayerName, Tbl_Teams.Te_Name AS TeamName FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id WHERE Tbl_Teams.Te_Id = @filterId;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             dbCommand.Parameters.Add("filterId", SqlDbType.Int).Value = filterId;

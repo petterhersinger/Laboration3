@@ -10,7 +10,7 @@ namespace Laboration3.Models
         {
 
             SqlConnection dbConnection = new SqlConnection();
-            dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Hobbys; Integrated Security = True";
+            dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
             String sqlstring = "Select * From Tbl_Teams";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
             SqlDataReader reader = null;
