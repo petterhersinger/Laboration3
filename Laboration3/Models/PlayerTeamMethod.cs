@@ -44,7 +44,7 @@ namespace Laboration3.Models
                 dbConnection.Close();
             }
         }
-        public List<PlayerTeamModel> GetPlayerTeamModel(out string errormsg, int filterId)
+        public List<PlayerTeamModel> GetPlayerTeamModel(out string errormsg, string filterId)
         {
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";

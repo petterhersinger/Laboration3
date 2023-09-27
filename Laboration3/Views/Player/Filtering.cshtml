@@ -2,11 +2,9 @@
 
 @{
     int i = 0;
-    if (ViewData["Team"] != null) { string teamValue = ViewData["Team"].ToString(); }
+    //if (ViewData["Team"] != null) { string teamValue = ViewData["Team"].ToString(); }
     string s = ViewBag.message;
-    if (ViewBag.message != null) {
-        
-    }
+
 }
 <h2>Filtering</h2>
 <div class="row">
@@ -34,7 +32,7 @@
     </div>
 </div>
 
-<p>Variabel s: @s</p>
+<p>Team ID: @s</p>
 
 <p><b>Players and teams from ViewModel</b></p>
 <table class="table">

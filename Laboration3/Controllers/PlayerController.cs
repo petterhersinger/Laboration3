@@ -220,7 +220,7 @@ namespace Laboration3.Controllers
 
             PlayerTeamViewModel myModel = new PlayerTeamViewModel
             {
-                PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
+                PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg, Team),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
             };
 
