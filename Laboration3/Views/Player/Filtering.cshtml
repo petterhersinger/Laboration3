@@ -2,7 +2,7 @@
 
 @{
     int i = 0;
-    if (ViewData["Team"] != null) { i = (int)ViewData["Team"]; }
+    if (ViewData["Team"] != null) { string teamValue = ViewData["Team"].ToString(); }
     string s = ViewBag.message;
     if (ViewBag.message != null) {
         
@@ -11,7 +11,7 @@
 <h2>Filtering</h2>
 <div class="row">
     <div class="form-group col-md-4">
-        <form asp-action="Filtering3">
+        <form asp-action="Filtering" method="post">
             <div class="form-group">
                 <select class="form-control" id="Team" name="Team">
                     @foreach (Laboration3.Models.TeamModel TeamModel in Model.TeamModelList)
@@ -54,7 +54,7 @@
 
 <p><b>Team List - ViewData</b></p>
 @{
-    List<TeamModel> TeamModelList2 = (List<TeamModel>)ViewData["aktivitetslista"];
+    List<TeamModel> TeamModelList2 = (List<TeamModel>)ViewData["teamlist"];
 }
 
 <table class="table">
@@ -78,7 +78,7 @@
         <th>Id</th>
         <th>Team</th>
     </tr>
-    @foreach (Laboration3.Models.TeamModel TeamModel in (List<TeamModel>)ViewBag.teamlist)
+    @foreach (Laboration3.Models.TeamModel TeamModel in (List<TeamModel>)ViewBag.Teamlist)
     {
         <tr>
             <td>@TeamModel.Id</td>

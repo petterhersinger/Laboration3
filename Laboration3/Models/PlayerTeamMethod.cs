@@ -11,7 +11,7 @@ namespace Laboration3.Models
         {
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
-            String sqlstring = "SELECT Tbl_Players.Pl_Name AS PlayerName, Tbl_Teams.Te_Name AS TeamName FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id;";
+            String sqlstring = "SELECT Tbl_Players.Pl_Name, Tbl_Teams.Te_Name FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
             SqlDataReader reader = null;
 
@@ -27,7 +27,7 @@ namespace Laboration3.Models
                 {
                     PlayerTeamModel pt = new PlayerTeamModel();
                     pt.Name = reader["Pl_Name"].ToString();
-                    pt.Team = reader["Pl_TeamId"].ToString();
+                    pt.Team = reader["Te_Name"].ToString();
 
                     PlayerTeamModelList.Add(pt);
                 }
@@ -48,7 +48,7 @@ namespace Laboration3.Models
         {
             SqlConnection dbConnection = new SqlConnection();
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
-            String sqlstring = "SELECT Tbl_Players.Pl_Name AS PlayerName, Tbl_Teams.Te_Name AS TeamName FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id WHERE Tbl_Teams.Te_Id = @filterId;";
+            String sqlstring = "SELECT Tbl_Players.Pl_Name, Tbl_Teams.Te_Name FROM Tbl_Players INNER JOIN Tbl_Teams ON Tbl_Players.Pl_TeamId = Tbl_Teams.Te_Id WHERE Tbl_Teams.Te_Id = @filterId;";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             dbCommand.Parameters.Add("filterId", SqlDbType.Int).Value = filterId;
@@ -67,7 +67,7 @@ namespace Laboration3.Models
                 {
                     PlayerTeamModel pt = new PlayerTeamModel();
                     pt.Name = reader["Pl_Name"].ToString();
-                    pt.Team = reader["Pl_TeamId"].ToString();
+                    pt.Team = reader["Te_Name"].ToString();
 
                     PlayerTeamModelList.Add(pt);
                 }

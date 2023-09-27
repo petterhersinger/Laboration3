@@ -81,7 +81,7 @@ namespace Laboration3.Controllers
 
                 if (i > 0)
                 {
-                    return RedirectToAction("Details", new { player_id = player_id });
+                    return RedirectToAction("Details", new { player_id });
                 }
                 else
                 {
@@ -90,7 +90,6 @@ namespace Laboration3.Controllers
             }
             return View(updatedPlayer);
         }
-
 
         public IActionResult SelectWithDataSet()
         {
@@ -132,6 +131,66 @@ namespace Laboration3.Controllers
             ViewBag.error = error;
             return View(TeamList);
         }
+        //[HttpGet]
+        //public IActionResult Filtering()
+        //{
+        //    PlayerTeamMethod pm = new PlayerTeamMethod();
+        //    TeamMethod tm = new TeamMethod();
+
+        //    PlayerTeamViewModel myModel = new PlayerTeamViewModel
+        //    {
+        //        PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
+        //        TeamModelList = tm.GetTeamList(out string errormsg2)
+        //    };
+        //    ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
+        //    return View(myModel);
+        //}
+        //[HttpGet]
+        //public IActionResult Filtering2()
+        //{
+        //    PlayerTeamMethod pm = new PlayerTeamMethod();
+        //    TeamMethod tm = new TeamMethod();
+
+        //    PlayerTeamViewModel myModel = new PlayerTeamViewModel
+        //    {
+        //        PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
+        //        TeamModelList = tm.GetTeamList(out string errormsg2)
+        //    };
+
+        //    List<TeamModel> TeamList = new List<TeamModel>();
+        //    TeamList = tm.GetTeamList(out string errormsg3);
+        //    ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
+        //    ViewData["teamlist"] = TeamList;
+
+        //    ViewBag.teamlist = TeamList;
+
+        //    return View(myModel);
+        //}
+        //[HttpPost]
+        //public IActionResult Filtering2(string Team)
+        //{
+        //    int i = Convert.ToInt32(Team);
+        //    ViewData["Team"] = i;
+
+        //    PlayerTeamMethod pm = new PlayerTeamMethod();
+        //    TeamMethod tm = new TeamMethod();
+
+        //    PlayerTeamViewModel myModel = new PlayerTeamViewModel
+        //    {
+        //        PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
+        //        TeamModelList = tm.GetTeamList(out string errormsg2)
+        //    };
+
+        //    List<TeamModel> TeamList = new List<TeamModel>();
+        //    TeamList = tm.GetTeamList(out string errormsg3);
+        //    ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
+        //    ViewData["teamlist"] = TeamList;
+
+        //    ViewBag.teamlist = TeamList;
+        //    ViewBag.message = Team;
+
+        //    return View(myModel);
+        //}
         [HttpGet]
         public IActionResult Filtering()
         {
@@ -143,20 +202,6 @@ namespace Laboration3.Controllers
                 PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
                 TeamModelList = tm.GetTeamList(out string errormsg2)
             };
-            ViewBag.error = "1: " + errormsg + "2: " + errormsg2;
-            return View(myModel);
-        }
-        [HttpGet]
-        public IActionResult Filtering2()
-        {
-            PlayerTeamMethod pm = new PlayerTeamMethod();
-            TeamMethod tm = new TeamMethod();
-
-            PlayerTeamViewModel myModel = new PlayerTeamViewModel
-            {
-                PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
-                TeamModelList = tm.GetTeamList(out string errormsg2)
-            };
 
             List<TeamModel> TeamList = new List<TeamModel>();
             TeamList = tm.GetTeamList(out string errormsg3);
@@ -168,32 +213,7 @@ namespace Laboration3.Controllers
             return View(myModel);
         }
         [HttpPost]
-        public IActionResult Filtering2(string Team)
-        {
-            int i = Convert.ToInt32(Team);
-            ViewData["Team"] = i;
-
-            PlayerTeamMethod pm = new PlayerTeamMethod();
-            TeamMethod tm = new TeamMethod();
-
-            PlayerTeamViewModel myModel = new PlayerTeamViewModel
-            {
-                PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg),
-                TeamModelList = tm.GetTeamList(out string errormsg2)
-            };
-
-            List<TeamModel> TeamList = new List<TeamModel>();
-            TeamList = tm.GetTeamList(out string errormsg3);
-            ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
-            ViewData["teamlist"] = TeamList;
-
-            ViewBag.teamlist = TeamList;
-            ViewBag.message = Team;
-
-            return View(myModel);
-        }
-        [HttpGet]
-        public IActionResult Filtering3()
+        public IActionResult Filtering(string Team)
         {
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
@@ -206,40 +226,18 @@ namespace Laboration3.Controllers
 
             List<TeamModel> TeamList = new List<TeamModel>();
             TeamList = tm.GetTeamList(out string errormsg3);
-            ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
-            ViewData["teamlist"] = TeamList;
-
-            ViewBag.teamlist = TeamList;
-
-            return View(myModel);
-        }
-        [HttpPost]
-        public IActionResult Filtering3(string Team)
-        {
-            int i = Convert.ToInt32(Team);
-            PlayerTeamMethod pm = new PlayerTeamMethod();
-            TeamMethod tm = new TeamMethod();
-
-            PlayerTeamViewModel myModel = new PlayerTeamViewModel
-            {
-                PlayerTeamModelList = pm.GetPlayerTeamModel(out string errormsg, i),
-                TeamModelList = tm.GetTeamList(out string errormsg2)
-            };
-
-            List<TeamModel> TeamList = new List<TeamModel>();
-            TeamList = tm.GetTeamList(out string errormsg3);
 
             ViewBag.error = "1: " + errormsg + "2: " + errormsg2 + "3: " + errormsg3;
             ViewData["teamlist"] = TeamList;
 
             ViewBag.teamlist = TeamList;
             ViewBag.message = Team;
-            ViewData["Team"] = i;
+            ViewData["Team"] = Team;
 
             return View(myModel);
         }
         [HttpGet]
-        public IActionResult Sort(string sort)
+        public IActionResult Sort(string sorting)
         {
             PlayerTeamMethod pm = new PlayerTeamMethod();
             TeamMethod tm = new TeamMethod();
@@ -257,7 +255,7 @@ namespace Laboration3.Controllers
 
             ViewBag.Direction = ascending ? "asc" : "desc";
 
-            if (sort == "name")
+            if (sorting == "name")
             {
                 if (ascending)
                 {
@@ -280,7 +278,7 @@ namespace Laboration3.Controllers
                 TeamModelList = tm.GetTeamList(out string errormsg2)
             };
 
-            ViewBag.sorting = sort;
+            ViewBag.sorting = sorting;
 
             return View(myModel);
         }

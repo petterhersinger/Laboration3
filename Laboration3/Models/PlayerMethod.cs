@@ -82,7 +82,7 @@ namespace Laboration3.Models
 
             dbConnection.ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = Players; Integrated Security = True";
 
-            String sqlstring = "UPDATE Tbl_Players SET Pl_Name = @Name, Pl_Position = @Position, Pl_IsStarting = @IsStarting, Pl_TeamId = @TeamId, WHERE Pl_Id = @Id";
+            String sqlstring = "UPDATE Tbl_Players SET Pl_Name = @Name, Pl_Position = @Position, Pl_IsStarting = @IsStarting, Pl_TeamId = @TeamId WHERE Pl_Id = @Id";
             SqlCommand dbCommand = new SqlCommand(sqlstring, dbConnection);
 
             dbCommand.Parameters.Add("Name", SqlDbType.NVarChar, 30).Value = updatedPlayer.Name;
@@ -295,7 +295,7 @@ namespace Laboration3.Models
                 {
                     PlayerTeamModel Team = new PlayerTeamModel();
                     Team.Name = reader["Pl_Name"].ToString();
-                    Team.Team = reader["Pl_TeamId"].ToString();
+                    Team.Team = reader["Te_Name"].ToString();
 
                     TeamList.Add(Team);
                 }

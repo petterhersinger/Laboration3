@@ -1,5 +1,4 @@
 ﻿@model Laboration3.Models.PlayerTeamViewModel
-
 @using Microsoft.AspNetCore.Http
 
 @{
@@ -10,7 +9,7 @@
     {
 
     }
-    ViewData["Title"] = "Sort";
+    ViewData["Title"] = "Sorting";
 }
 <h2>Sort Teams</h2>
 
@@ -18,7 +17,7 @@
 
 <div class="row">
     <div class="form-group col-md-4">
-        <form asp-action="Filtrering3">
+        <form asp-action="Filtering">
             <div class="form-group">
                 <select class="form-control" id="Team" name="Team">
                     @foreach (Laboration3.Models.TeamModel TeamModel in Model.TeamModelList)
@@ -40,13 +39,13 @@
         </form>
     </div>
 </div>
-<p>Querystring contains: @ViewBag.sort</p>
+<p>Querystring contains: @ViewBag.sorting</p>
 
 <table class="table">
     <tr>
         <th>
-            <a href="Sort?sort=name">Name
-                @if (ViewBag.sort == "name")
+            <a href="Sort?sorting=name">Name
+                @if (ViewBag.sorting == "name")
                 {
                     if ((string)ViewBag.Direction == "asc")
                     {
